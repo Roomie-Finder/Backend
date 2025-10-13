@@ -1,7 +1,8 @@
-package com.example.socialroommatefinder.UserController;
+package com.example.roomieFinder.Controller;
 
-import com.example.socialroommatefinder.Entities.User;
-import com.example.socialroommatefinder.UserService.UserServices;
+import com.example.roomieFinder.Entities.User;
+import com.example.roomieFinder.Entities.UserProfile;
+import com.example.roomieFinder.UserService.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,14 +14,15 @@ public class UserController {
     @Autowired
     UserServices userService;
 
+
     @GetMapping
     public List<User> getUser(){
         return userService.getAllUsers();
     }
 
     @PostMapping
-    public String addUser(@RequestBody User user){
+    public User addUser(@RequestBody User user ){
         userService.addUser(user);
-        return "added user";
+        return user;
     }
 }

@@ -1,6 +1,6 @@
-package com.example.socialroommatefinder.UserRepository;
+package com.example.roomieFinder.Repository;
 
-import com.example.socialroommatefinder.Entities.User;
+import com.example.roomieFinder.Entities.User;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 

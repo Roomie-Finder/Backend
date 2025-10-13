@@ -1,10 +1,10 @@
-package com.example.socialroommatefinder;
+package com.example.roomieFinder;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SocialRoommateFinderApplicationTests {
+class RoomieFinderApplicationTests {
 
     @Test
     void contextLoads() {
