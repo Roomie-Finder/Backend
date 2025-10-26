@@ -2,21 +2,25 @@ package com.example.roomieFinder.UserService;
 
 import com.example.roomieFinder.Entities.User;
 import com.example.roomieFinder.Entities.UserProfile;
+import com.example.roomieFinder.Exception.ResourceNotFoundException;
 import com.example.roomieFinder.Repository.UserProfileRepository;
 import com.example.roomieFinder.Repository.UserRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class UserServices {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final UserProfileRepository userProfileRepository;
 
     @Autowired
-    private UserProfileRepository userProfileRepository;
+    public UserServices(UserRepository userRepository , UserProfileRepository userProfileRepository){
+        this.userProfileRepository = userProfileRepository;
+        this.userRepository = userRepository;
+    }
 
     public List<User> getAllUsers(){
         return userRepository.findAll();
@@ -26,7 +30,10 @@ public class UserServices {
         UserProfile userProfile = user.getUserProfile();
         UserProfile savedProfile = userProfileRepository.save(userProfile);
         user.setUserProfile(savedProfile);
-        System.out.println(savedProfile);
         userRepository.save(user);
+    }
+
+    public User getUserById(ObjectId userId) {
+        return userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("Member not found"));
     }
 }

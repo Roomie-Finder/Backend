@@ -3,50 +3,40 @@ package com.example.roomieFinder.Entities;
 import java.util.List;
 
 public class LifeStyle {
-    private String socialHabits;
-    private boolean wfhStatus;
-    private List<String> hobbies;
-    private boolean smoking;
+    private List<String> socialHabits;
+    private List<String> interests;
+    private List<String> smokingDrinkingHabbit;
+    private String sleepSchedule;
 
-    public String getSocialHabits() {
+    public List<String> getSocialHabits() {
         return socialHabits;
     }
 
-    public void setSocialHabits(String socialHabits) {
+    public void setSocialHabits(List<String> socialHabits) {
         this.socialHabits = socialHabits;
     }
 
-    public boolean isWfhStatus() {
-        return wfhStatus;
+    public List<String> getInterests() {
+        return interests;
     }
 
-    public void setWfhStatus(boolean wfhStatus) {
-        this.wfhStatus = wfhStatus;
+    public void setInterests(List<String> interests) {
+        this.interests = interests;
     }
 
-    public List<String> getHobbies() {
-        return hobbies;
+    public void setSmokingDrinkingHabbit(List<String> smokingDrinkingHabbit) {
+        this.smokingDrinkingHabbit = smokingDrinkingHabbit;
     }
 
-    public void setHobbies(List<String> hobbies) {
-        this.hobbies = hobbies;
+    public List<String> getSmokingDrinkingHabbit() {
+        return smokingDrinkingHabbit;
     }
 
-    public boolean isDrinking() {
-        return drinking;
+    public String getSleepSchedule() {
+        return sleepSchedule;
     }
 
-    public void setDrinking(boolean drinking) {
-        this.drinking = drinking;
+    public void setSleepSchedule(String sleepSchedule) {
+        this.sleepSchedule = sleepSchedule;
     }
-
-    public boolean isSmoking() {
-        return smoking;
-    }
-
-    public void setSmoking(boolean smoking) {
-        this.smoking = smoking;
-    }
-
-    private boolean drinking;
 }

@@ -1,28 +1,35 @@
 package com.example.roomieFinder.Controller;
 
 import com.example.roomieFinder.Entities.User;
-import com.example.roomieFinder.Entities.UserProfile;
 import com.example.roomieFinder.UserService.UserServices;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:5173")
 @RequestMapping("user")
 public class UserController {
+    private final UserServices userServices;
     @Autowired
-    UserServices userService;
-
+    public UserController(UserServices userServices){
+        this.userServices = userServices;
+    }
 
     @GetMapping
-    public List<User> getUser(){
-        return userService.getAllUsers();
+    public List<User> getAllUsers(){
+        return userServices.getAllUsers();
+    }
+
+    @GetMapping("{id}")
+    public User getUserById(@PathVariable ObjectId id){
+        return userServices.getUserById(id);
     }
 
     @PostMapping
-    public User addUser(@RequestBody User user ){
-        userService.addUser(user);
-        return user;
+    public void addUser(@RequestBody User user ){
+        userServices.addUser(user);
     }
 }

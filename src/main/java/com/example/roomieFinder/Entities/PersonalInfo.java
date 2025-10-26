@@ -1,11 +1,17 @@
 package com.example.roomieFinder.Entities;
 
 public class PersonalInfo {
+    private String aboutUser;
     private String contactNo;
     private String occupation;
+    private String workFromHome;
     private String nativeLanguage;
-    private String originCity;
+    private String city;
     private int age;
+
+    public String getAboutUser() {return aboutUser;}
+
+    public void setAboutUser(String aboutUser) {this.aboutUser = aboutUser;}
 
     public String getContactNo() {
         return contactNo;
@@ -31,12 +37,12 @@ public class PersonalInfo {
         this.nativeLanguage = nativeLanguage;
     }
 
-    public String getOriginCity() {
-        return originCity;
+    public String getCity() {
+        return city;
     }
 
-    public void setOriginCity(String originCity) {
-        this.originCity = originCity;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public int getAge() {
@@ -46,4 +52,8 @@ public class PersonalInfo {
     public void setAge(int age) {
         this.age = age;
     }
+
+    public String getWorkFromHome() {return workFromHome;}
+
+    public void setWorkFromHome(String workFromHome) {this.workFromHome = workFromHome; }
 }

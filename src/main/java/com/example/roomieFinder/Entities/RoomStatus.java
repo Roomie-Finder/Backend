@@ -4,8 +4,9 @@ import java.util.List;
 
 public class RoomStatus {
     private boolean isLookingForRoom;
-    private boolean hasRoomAvailable;
+    private boolean isLookingForRoommate;
     private List<String> locationPreference;
+    private String preferredRoomType;
 
     public boolean isLookingForRoom() {
         return isLookingForRoom;
@@ -15,12 +16,12 @@ public class RoomStatus {
         isLookingForRoom = lookingForRoom;
     }
 
-    public boolean isHasRoomAvailable() {
-        return hasRoomAvailable;
+    public boolean isLookingForRoommate() {
+        return isLookingForRoommate;
     }
 
-    public void setHasRoomAvailable(boolean hasRoomAvailable) {
-        this.hasRoomAvailable = hasRoomAvailable;
+    public void setLookingForRoommate(boolean lookingForRoommate) {
+        this.isLookingForRoommate = lookingForRoommate;
     }
 
     public List<String> getLocationPreference() {
@@ -30,4 +31,8 @@ public class RoomStatus {
     public void setLocationPreference(List<String> locationPreference) {
         this.locationPreference = locationPreference;
     }
+
+    public String getPreferredRoomType() { return preferredRoomType;}
+
+    public void setPreferredRoomType(String preferredRoomType) { this.preferredRoomType = preferredRoomType;}
 }

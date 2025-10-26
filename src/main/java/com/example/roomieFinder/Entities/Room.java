@@ -1,27 +1,32 @@
 package com.example.roomieFinder.Entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 
-@Document
+@Document(collection="Rooms")
 public class Room {
     @Id
+    @JsonSerialize(using = ToStringSerializer.class)    
     private ObjectId id;
-    private int rent;
+    private String roomName;
     private String address;
-    private int totalRoommates;
-    private List<User> members;
+    private int rent;
     private String propertyType;
-    private List<String> parking;
-    private int rooms;
-    private int bathrooms;
-    private boolean isNonVegAllowed;
-    private boolean isSmokingAllowed;
-    private boolean isDrinkingAllowed;
+    private String lookingFor;
+    private int deposit;
+    private String aboutRoom;
+    private List<String> amenities;
+    private boolean parkingAvailable;
+    @DBRef
+    private List<User> members;
+    private List<String> roommatePreferences;
 
     public ObjectId getId() {
         return id;
@@ -35,8 +40,32 @@ public class Room {
         return rent;
     }
 
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
     public void setRent(int rent) {
         this.rent = rent;
+    }
+
+    public int getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(int deposit) {
+        this.deposit = deposit;
+    }
+
+    public String getLookingFor() {
+        return lookingFor;
+    }
+
+    public void setLookingFor(String lookingFor) {
+        this.lookingFor = lookingFor;
     }
 
     public String getAddress() {
@@ -47,12 +76,12 @@ public class Room {
         this.address = address;
     }
 
-    public int getTotalRoommates() {
-        return totalRoommates;
+    public List<User> getMembers() {
+        return members;
     }
 
-    public void setTotalRoommates(int totalRoommates) {
-        this.totalRoommates = totalRoommates;
+    public void setMembers(List<User> members) {
+        this.members = members;
     }
 
     public String getPropertyType() {
@@ -63,51 +92,36 @@ public class Room {
         this.propertyType = propertyType;
     }
 
-    public List<String> getParking() {
-        return parking;
+    public String getAboutRoom() {
+        return aboutRoom;
     }
 
-    public void setParking(List<String> parking) {
-        this.parking = parking;
+    public void setAboutRoom(String aboutRoom) {
+        this.aboutRoom = aboutRoom;
     }
 
-    public int getRooms() {
-        return rooms;
+    public boolean isParkingAvailable() {
+        return parkingAvailable;
     }
 
-    public void setRooms(int rooms) {
-        this.rooms = rooms;
+    public void setParkingAvailable(boolean parkingAvailable) {
+        this.parkingAvailable = parkingAvailable;
     }
 
-    public int getBathrooms() {
-        return bathrooms;
+    public List<String> getRoommatePreferences() {
+        return roommatePreferences;
     }
 
-    public void setBathrooms(int bathrooms) {
-        this.bathrooms = bathrooms;
+    public void setRoommatePreferences(List<String> roommatePreferences) {
+        this.roommatePreferences = roommatePreferences;
     }
 
-    public boolean isNonVegAllowed() {
-        return isNonVegAllowed;
+    public List<String> getAmenities() {
+        return amenities;
     }
 
-    public void setNonVegAllowed(boolean nonVegAllowed) {
-        isNonVegAllowed = nonVegAllowed;
+    public void setAmenities(List<String> amenities) {
+        this.amenities = amenities;
     }
 
-    public boolean isSmokingAllowed() {
-        return isSmokingAllowed;
-    }
-
-    public void setSmokingAllowed(boolean smokingAllowed) {
-        isSmokingAllowed = smokingAllowed;
-    }
-
-    public boolean isDrinkingAllowed() {
-        return isDrinkingAllowed;
-    }
-
-    public void setDrinkingAllowed(boolean drinkingAllowed) {
-        isDrinkingAllowed = drinkingAllowed;
-    }
 }
