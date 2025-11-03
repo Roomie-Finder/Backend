@@ -1,7 +1,7 @@
 package com.example.roomieFinder.Controller;
 
 import com.example.roomieFinder.Entities.Room;
-import com.example.roomieFinder.UserService.RoomServices;
+import com.example.roomieFinder.Services.RoomServices;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +31,7 @@ public class RoomController {
 
     @GetMapping("/{roomid}")
     public Room getRoomById(@PathVariable ObjectId roomid){
-        System.out.println(roomid);
+        System.out.println(roomServices.getRoomById(roomid));
         return roomServices.getRoomById(roomid);
     }
 //    @GetMapping("/{roomId}")

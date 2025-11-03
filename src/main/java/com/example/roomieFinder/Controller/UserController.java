@@ -1,7 +1,7 @@
 package com.example.roomieFinder.Controller;
 
 import com.example.roomieFinder.Entities.User;
-import com.example.roomieFinder.UserService.UserServices;
+import com.example.roomieFinder.Services.UserServices;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

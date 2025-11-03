@@ -1,4 +1,4 @@
-package com.example.roomieFinder.UserService;
+package com.example.roomieFinder.Services;
 
 import com.example.roomieFinder.Entities.User;
 import com.example.roomieFinder.Entities.UserProfile;
