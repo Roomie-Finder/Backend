@@ -6,21 +6,14 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @CrossOrigin("http://localhost:5173")
 @RequestMapping("user")
 public class UserController {
     private final UserServices userServices;
     @Autowired
-    public UserController(UserServices userServices){
+    public UserController(UserServices userServices ){
         this.userServices = userServices;
-    }
-
-    @GetMapping
-    public List<User> getAllUsers(){
-        return userServices.getAllUsers();
     }
 
     @GetMapping("{id}")
@@ -28,8 +21,20 @@ public class UserController {
         return userServices.getUserById(id);
     }
 
-    @PostMapping
-    public void addUser(@RequestBody User user ){
+    @PostMapping("login")
+    public void userlogin(@RequestBody String email , @RequestBody String password ){
+
+        try{
+                userServices.login(email , password);
+        }
+        catch (Exception e){
+
+        }
+    }
+
+    @PostMapping("signup")
+    public void createUser(@RequestBody User user ){
+
         userServices.addUser(user);
     }
 }
