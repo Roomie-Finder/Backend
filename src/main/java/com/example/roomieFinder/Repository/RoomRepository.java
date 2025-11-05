@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoomRepository extends MongoRepository<Room, ObjectId> {
 
+    ObjectId deleteRoomById(ObjectId id);
 }

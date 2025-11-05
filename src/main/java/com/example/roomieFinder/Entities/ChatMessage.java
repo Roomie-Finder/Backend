@@ -9,16 +9,16 @@ import java.util.Date;
 public class ChatMessage {
     @Id
     private ObjectId id;
-    private String senderId;
-    private String recipientId;
+    private ObjectId senderId;
+    private ObjectId recipientId;
     private String content;
     private Date timestamp;
 
-    public String getSenderId() {
+    public ObjectId getSenderId() {
         return senderId;
     }
 
-    public void setSenderId(String senderId) {
+    public void setSenderId(ObjectId senderId) {
         this.senderId = senderId;
     }
 
@@ -38,11 +38,11 @@ public class ChatMessage {
         this.content = content;
     }
 
-    public String getRecipientId() {
+    public ObjectId getRecipientId() {
         return recipientId;
     }
 
-    public void setRecipientId(String recipientId) {
+    public void setRecipientId(ObjectId recipientId) {
         this.recipientId = recipientId;
     }
 

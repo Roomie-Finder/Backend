@@ -36,7 +36,7 @@ public class ChatController {
         // This is the magic: Spring + RabbitMQ route this message
         // to the specific user's private queue.
         messagingTemplate.convertAndSendToUser(
-                chatMessage.getRecipientId(), // The recipient's username or ID
+                String.valueOf(chatMessage.getRecipientId()), // The recipient's username or ID
                 "/queue/messages",            // The private queue they are subscribed to
                 chatMessage                   // The message payload
         );
