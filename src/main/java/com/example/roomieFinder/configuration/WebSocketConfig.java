@@ -24,9 +24,6 @@
 //
 //    @Override
 //    public void registerStompEndpoints(StompEndpointRegistry registry) {
-//        // This is the HTTP URL that clients use to "handshake"
-//        // and upgrade their connection to a WebSocket.
-//        // "/ws-chat" is your main WebSocket endpoint.
 //        registry.addEndpoint("/ws-chat").withSockJS();
 //    }
 //}

@@ -4,7 +4,12 @@ import com.example.roomieFinder.Entities.User;
 import com.example.roomieFinder.Services.UserServices;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:5173")
@@ -22,19 +27,32 @@ public class UserController {
     }
 
     @PostMapping("login")
-    public void userlogin(@RequestBody String email , @RequestBody String password ){
-
-        try{
-                userServices.login(email , password);
+    public ResponseEntity<?> userlogin(@RequestBody User user){
+        System.out.println("login");
+        Optional<User> userOptional = userServices.login(user.getEmail(), user.getPassword());
+        if(userOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "invalid username or password"));
         }
-        catch (Exception e){
 
+        User currUser = userOptional.get();
+        System.out.println(currUser.getFirstName());
+
+        if(currUser.getPassword().equals(user.getPassword())){
+            return ResponseEntity.ok(currUser);
         }
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error" , "Invalid email or password"));
     }
 
     @PostMapping("signup")
-    public void createUser(@RequestBody User user ){
+    public ResponseEntity<?> createUser(@RequestBody User user ){
 
-        userServices.addUser(user);
+        User newuser =  userServices.addUser(user);
+        if (newuser == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", "Failed to create user. Email may already be in use."));
+        }
+        System.out.print(newuser.getFirstName());
+        return ResponseEntity.ok(newuser);
     }
 }
