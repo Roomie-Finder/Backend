@@ -34,10 +34,5 @@ public class RoomController {
         System.out.println(roomServices.getRoomById(roomid));
         return roomServices.getRoomById(roomid);
     }
-//    @GetMapping("/{roomId}")
-//    public String addMember(@PathVariable ObjectId roomId ,@RequestParam(value = "userId", required = true) ObjectId userId){
-//        System.out.println(roomId+" "+userId);
-//        boolean added =  roomServices.addNewMember(roomId , userId);
-//        return added?"added new member":" something went wrong";
-//    }
+
 }

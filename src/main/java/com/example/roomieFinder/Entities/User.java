@@ -24,6 +24,7 @@ public class User {
     @Indexed
     private String email;
     private String password;
+    private String role;
     @DBRef
     private UserProfile userProfile;
     @JsonSerialize(using = ToStringSerializer.class)

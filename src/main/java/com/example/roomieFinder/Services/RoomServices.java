@@ -14,14 +14,10 @@ import java.util.List;
 @Service
 public class RoomServices {
     private final RoomRepository roomRepository;
-    private final UserServices userServices;
-    private final UserRepository userRepository;
 
     @Autowired
-    public RoomServices(RoomRepository roomRepository, UserServices userServices, UserRepository userRepository){
+    public RoomServices(RoomRepository roomRepository){
         this.roomRepository = roomRepository;
-        this.userServices = userServices;
-        this.userRepository = userRepository;
     }
 
     public void createRoom(Room room){
@@ -34,17 +30,5 @@ public class RoomServices {
 
     public Room getRoomById(ObjectId roomId) {
         return roomRepository.findById(roomId).orElseThrow(()->new ResourceNotFoundException("Room not found !!"));
-    }
-
-    public boolean addNewMember(ObjectId roomId , ObjectId userId) {
-        User user = userServices.getUserById(userId);
-        List<ObjectId> userRooms= user.getRooms();
-        Room room = getRoomById(roomId);
-        List<User> members = room.getMembers();
-        members.add(user);
-        roomRepository.save(room);
-        userRooms.add(room.getId());
-        userRepository.save(user);
-        return true;
     }
 }
