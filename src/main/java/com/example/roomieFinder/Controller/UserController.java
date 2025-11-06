@@ -12,11 +12,10 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:5173")
 @RequestMapping("user")
 public class UserController {
     private final UserServices userServices;
-    @Autowired
+
     public UserController(UserServices userServices ){
         this.userServices = userServices;
     }
@@ -27,9 +26,9 @@ public class UserController {
     }
 
     @PostMapping("login")
-    public ResponseEntity<?> userlogin(@RequestBody User user){
+    public ResponseEntity<?> userLogin(@RequestBody User user){
         System.out.println("login");
-        Optional<User> userOptional = userServices.login(user.getEmail(), user.getPassword());
+        Optional<User> userOptional = userServices.login(user);
         if(userOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "invalid username or password"));
         }

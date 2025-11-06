@@ -4,22 +4,21 @@ import com.example.roomieFinder.Entities.Room;
 import com.example.roomieFinder.Entities.User;
 import com.example.roomieFinder.Services.AdminService;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:5173")
 @RequestMapping("admin")
 public class AdminController {
 
     private final AdminService adminService;
 
-    @Autowired
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }
@@ -29,12 +28,12 @@ public class AdminController {
         return adminService.getAllUsers();
     }
 
-    @GetMapping("{id}")
-    public User getUserById(@PathVariable ObjectId id){
-        return adminService.getUserById(id);
+    @GetMapping("user/{userId}")
+    public User getUserById(@PathVariable ObjectId userId){
+        return adminService.getUserById(userId);
     }
 
-    @DeleteMapping("{userId}/deleteuser")
+    @DeleteMapping("/deleteUser/{userId}")
     public ResponseEntity<?> deleteUserById(@PathVariable ObjectId userId){
               ObjectId id=  adminService.deleteUserById(userId);
         if(id != null){
@@ -50,14 +49,19 @@ public class AdminController {
         return adminService.getAllRooms();
     }
 
-    @GetMapping("/{roomid}")
-    public Room getRoomById(@PathVariable ObjectId roomid){
-        System.out.println(adminService.getRoomById(roomid));
-        return adminService.getRoomById(roomid);
+    @GetMapping("/room/{roomId}")
+    public Room getRoomById(@PathVariable ObjectId roomId){
+        System.out.println(adminService.getRoomById(roomId));
+        return adminService.getRoomById(roomId);
     }
 
-    @DeleteMapping("{roomId}/deleteroom")
-    public ObjectId deleteRoomById(@PathVariable ObjectId roomId){
-        return adminService.deleteRoomById(roomId);
+    @DeleteMapping("/deleteRoom/{roomId}")
+    public ResponseEntity<?> deleteRoomById(@PathVariable ObjectId roomId){
+        List<Room> rooms= adminService.deleteRoomById(roomId);
+        if(rooms!=null){
+            return ResponseEntity.ok(rooms);
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error" , "listing not found"));
     }
 }

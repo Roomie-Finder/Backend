@@ -4,24 +4,26 @@ import com.example.roomieFinder.Entities.Room;
 import com.example.roomieFinder.Entities.User;
 import com.example.roomieFinder.Exception.ResourceNotFoundException;
 import com.example.roomieFinder.Repository.RoomRepository;
-import com.example.roomieFinder.Repository.UserProfileRepository;
 import com.example.roomieFinder.Repository.UserRepository;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdminService {
 
     private final UserRepository userRepository;
     private final RoomRepository roomRepository;
+    private final RoomServices roomServices;
+    private final UserServices userServices;
 
-    @Autowired
-    public AdminService(UserRepository userRepository, RoomRepository roomRepository) {
+    public AdminService(UserRepository userRepository, RoomRepository roomRepository, RoomServices roomServices, UserServices userServices) {
         this.userRepository = userRepository;
         this.roomRepository = roomRepository;
+        this.roomServices = roomServices;
+        this.userServices = userServices;
     }
 
     public List<User> getAllUsers(){
@@ -44,7 +46,15 @@ public class AdminService {
         return roomRepository.findById(roomId).orElseThrow(()->new ResourceNotFoundException("Room not found !!"));
     }
 
-    public ObjectId deleteRoomById(ObjectId roomId){
-        return roomRepository.deleteRoomById(roomId);
+    public List<Room> deleteRoomById(ObjectId roomId) {
+        System.out.println("roomId d" + roomId);
+        Room room = roomServices.getRoomById(roomId);
+        User owner = room.getOwner();
+        if (owner != null && owner.getRooms() != null) {
+            owner.getRooms().removeIf(rid -> rid.equals(roomId));
+            userRepository.save(owner);
+        }
+        roomRepository.deleteById(roomId);
+        return roomServices.getAllRooms();
     }
 }

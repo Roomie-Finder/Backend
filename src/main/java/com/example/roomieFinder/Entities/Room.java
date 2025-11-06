@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -22,12 +23,16 @@ public class Room {
     private String roomName;
     private String address;
     private int rent;
+    private String date;
+    private String status;
     private String propertyType;
     private String lookingFor;
     private int deposit;
     private String aboutRoom;
     private List<String> amenities;
     private boolean parkingAvailable;
+    @DBRef
+    private User owner;
     @DBRef
     private List<User> members;
     private List<String> roommatePreferences;
