@@ -5,9 +5,12 @@ import com.example.roomieFinder.Entities.User;
 import com.example.roomieFinder.Services.AdminService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("http://localhost:5173")
@@ -31,12 +34,18 @@ public class AdminController {
         return adminService.getUserById(id);
     }
 
-    @DeleteMapping("{userId}")
-    public ObjectId deleteUserById(@PathVariable ObjectId userId){
-        return adminService.deleteUserById(userId);
+    @DeleteMapping("{userId}/deleteuser")
+    public ResponseEntity<?> deleteUserById(@PathVariable ObjectId userId){
+              ObjectId id=  adminService.deleteUserById(userId);
+        if(id != null){
+            return ResponseEntity.ok(id);
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error" , " user details not found"));
+        }
     }
 
-    @GetMapping
+    @GetMapping("getAllRooms")
     public List<Room> getAllRooms(){
         return adminService.getAllRooms();
     }
@@ -47,7 +56,7 @@ public class AdminController {
         return adminService.getRoomById(roomid);
     }
 
-    @DeleteMapping("{roomId}")
+    @DeleteMapping("{roomId}/deleteroom")
     public ObjectId deleteRoomById(@PathVariable ObjectId roomId){
         return adminService.deleteRoomById(roomId);
     }

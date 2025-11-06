@@ -46,7 +46,8 @@ public class UserController {
 
     @PostMapping("signup")
     public ResponseEntity<?> createUser(@RequestBody User user ){
-
+        user.setRole("user");
+        System.out.println(user.getRole());
         User newuser =  userServices.addUser(user);
         if (newuser == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
