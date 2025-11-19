@@ -2,14 +2,18 @@
 # Build stage
 #
 FROM maven:3.8.3-openjdk-17 AS build
+# Set a clear working directory for the Maven build
+WORKDIR /app
 COPY . .
-RUN mvn clean install
+# Run install, skipping tests for faster build times in Docker
+RUN mvn clean install -DskipTests
 
 #
 # Package stage
 #
 FROM eclipse-temurin:17-jdk
-COPY --from=build /target/your-build.jar demo.jar
-# ENV PORT=8080
 EXPOSE 8080
+# FIX: Use a wildcard (*) to copy the actual JAR file produced by Maven.
+# The JAR is located at /app/target/<artifact-id>-<version>.jar
+COPY --from=build /app/target/*.jar demo.jar
 ENTRYPOINT ["java","-jar","demo.jar"]
