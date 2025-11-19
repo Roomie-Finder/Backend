@@ -21,12 +21,12 @@ public class AdminController {
     private final AdminService adminService;
     private final UserServices userServices;
 
-    @GetMapping("getAllUsers")
+    @GetMapping("/getAllUsers")
     public List<User> getAllUsers(){
         return adminService.getAllUsers();
     }
 
-    @GetMapping("user/{userId}")
+    @GetMapping("/user/{userId}")
     public User getUserById(@PathVariable ObjectId userId){
         return adminService.getUserById(userId);
     }

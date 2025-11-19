@@ -59,7 +59,7 @@ public class RoomController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error " , "error adding member"));
     }
 
-    @PostMapping("member/remove")
+    @PostMapping("/member/remove")
     public ResponseEntity<?> removeRoomMember(@RequestBody Map<String ,ObjectId > map){
         ObjectId uid = map.get("uid");
         ObjectId rid = map.get("rid");
