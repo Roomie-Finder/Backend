@@ -3,25 +3,23 @@ package com.example.roomieFinder.Controller;
 import com.example.roomieFinder.Entities.Room;
 import com.example.roomieFinder.Entities.User;
 import com.example.roomieFinder.Services.AdminService;
+import com.example.roomieFinder.Services.UserServices;
+import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("admin")
+@RequiredArgsConstructor
 public class AdminController {
 
     private final AdminService adminService;
-
-    public AdminController(AdminService adminService) {
-        this.adminService = adminService;
-    }
+    private final UserServices userServices;
 
     @GetMapping("getAllUsers")
     public List<User> getAllUsers(){
@@ -34,14 +32,11 @@ public class AdminController {
     }
 
     @DeleteMapping("/deleteUser/{userId}")
-    public ResponseEntity<?> deleteUserById(@PathVariable ObjectId userId){
-              ObjectId id=  adminService.deleteUserById(userId);
-        if(id != null){
-            return ResponseEntity.ok(id);
-        }
-        else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error" , " user details not found"));
-        }
+    public ResponseEntity<?> deleteUserById(@PathVariable String userId){
+         adminService.deleteUserById(userId);
+         List<User> users = adminService.getAllUsers();
+         return ResponseEntity.ok(users);
+
     }
 
     @GetMapping("getAllRooms")

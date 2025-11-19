@@ -7,8 +7,7 @@ import java.util.List;
 @Getter
 @Setter
 public class RoomStatus {
-    private boolean isLookingForRoom;
-    private boolean isLookingForRoommate;
+    private String lookingFor;
     private List<String> locationPreference;
     private String preferredRoomType;
 }

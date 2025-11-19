@@ -9,7 +9,6 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AdminService {
@@ -17,13 +16,11 @@ public class AdminService {
     private final UserRepository userRepository;
     private final RoomRepository roomRepository;
     private final RoomServices roomServices;
-    private final UserServices userServices;
 
-    public AdminService(UserRepository userRepository, RoomRepository roomRepository, RoomServices roomServices, UserServices userServices) {
+    public AdminService(UserRepository userRepository, RoomRepository roomRepository, RoomServices roomServices) {
         this.userRepository = userRepository;
         this.roomRepository = roomRepository;
         this.roomServices = roomServices;
-        this.userServices = userServices;
     }
 
     public List<User> getAllUsers(){
@@ -34,8 +31,8 @@ public class AdminService {
         return userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("Member not found"));
     }
 
-    public ObjectId deleteUserById(ObjectId userId){
-        return userRepository.deleteUserById(userId);
+    public void deleteUserById(String userId){
+        userRepository.deleteUserById(userId);
     }
 
     public List<Room> getAllRooms() {
@@ -48,12 +45,6 @@ public class AdminService {
 
     public List<Room> deleteRoomById(ObjectId roomId) {
         System.out.println("roomId d" + roomId);
-        Room room = roomServices.getRoomById(roomId);
-        User owner = room.getOwner();
-        if (owner != null && owner.getRooms() != null) {
-            owner.getRooms().removeIf(rid -> rid.equals(roomId));
-            userRepository.save(owner);
-        }
         roomRepository.deleteById(roomId);
         return roomServices.getAllRooms();
     }

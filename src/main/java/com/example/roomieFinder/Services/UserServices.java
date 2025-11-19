@@ -31,7 +31,7 @@ public class UserServices {
 
     public Optional<User> login(User user) {
         System.out.println("Entered userServices");
-           Optional<User> optionalUser =  userRepository.findByEmail(user.getEmail());
+           Optional<User> optionalUser =  userRepository.findByUsername(user.getUsername());
            if(optionalUser.isPresent()){
                User newuser = optionalUser.get();
                if( newuser.getPassword().equals(user.getPassword())){
@@ -57,7 +57,7 @@ public class UserServices {
         UserProfile savedProfile = userProfileRepository.save(existingProfile);
         existingUser.setFirstName(userRequest.getFirstName());
         existingUser.setLastName(userRequest.getLastName());
-        existingUser.setEmail(userRequest.getEmail());
+        existingUser.setUsername(userRequest.getUsername());
         existingUser.setUserProfile(savedProfile);
 
         userRepository.save(existingUser);

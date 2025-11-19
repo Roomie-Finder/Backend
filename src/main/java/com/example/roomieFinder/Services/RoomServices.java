@@ -6,7 +6,6 @@ import com.example.roomieFinder.Exception.ResourceNotFoundException;
 import com.example.roomieFinder.Repository.RoomRepository;
 import com.example.roomieFinder.Repository.UserRepository;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,8 +24,8 @@ public class RoomServices {
         this.userServices = userServices;
     }
 
-    public void createRoom(Room room , ObjectId id){
-        User user=userServices.getUserById(id);
+    public void createRoom(Room room, ObjectId id) {
+        User user = userServices.getUserById(id);
         List<User> members = new ArrayList<>();
         members.add(user);
         room.setMembers(members);
@@ -62,5 +61,15 @@ public class RoomServices {
         if(!room.getOwner().getId().equals(uid)) list.removeIf(user->user.getId().equals(uid));
         room.setMembers(list);
         return room;
+    }
+
+    public List<Room> getUserRooms(ObjectId uid) {
+        return roomRepository.findByOwnerId(uid);
+    }
+
+    public Room updateRoom(Room room , ObjectId roomId) {
+        roomRepository.save(room);
+        Optional<Room> rooms =  roomRepository.findById(room.getId());
+        return rooms.orElse(null);
     }
 }
