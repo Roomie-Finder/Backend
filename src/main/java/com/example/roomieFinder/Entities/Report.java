@@ -11,9 +11,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Getter
 public class Report {
     @Id
-    private ObjectId id;
-    private ObjectId userId;
-    private ObjectId roomId;
-    private String report;
+    private String id;
+    private String roomId;
+    private String contactInfo;
+    private String description;
 
 }

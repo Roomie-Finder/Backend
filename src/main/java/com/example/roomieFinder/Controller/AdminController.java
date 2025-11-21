@@ -1,5 +1,6 @@
 package com.example.roomieFinder.Controller;
 
+import com.example.roomieFinder.Entities.Report;
 import com.example.roomieFinder.Entities.Room;
 import com.example.roomieFinder.Entities.User;
 import com.example.roomieFinder.Services.AdminService;
@@ -21,6 +22,7 @@ public class AdminController {
     private final AdminService adminService;
     private final UserServices userServices;
 
+//  User Routes
     @GetMapping("/getAllUsers")
     public List<User> getAllUsers(){
         return adminService.getAllUsers();
@@ -39,6 +41,8 @@ public class AdminController {
 
     }
 
+
+//  Room Routes
     @GetMapping("getAllRooms")
     public List<Room> getAllRooms(){
         return adminService.getAllRooms();
@@ -58,5 +62,11 @@ public class AdminController {
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error" , "listing not found"));
+    }
+
+//  Report Routes
+    @GetMapping("/getAllReports")
+    public List<Report> getAllReports(){
+        return  adminService.getAllReports();
     }
 }

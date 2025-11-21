@@ -32,6 +32,7 @@ public class RoomController {
 
     @GetMapping("/{roomid}")
     public Room getRoomById(@PathVariable ObjectId roomid){
+
         return roomServices.getRoomById(roomid);
     }
     @GetMapping("user/{uid}")
